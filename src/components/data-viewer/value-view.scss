@@ -1,0 +1,54 @@
+.value-view {
+  display: inline-block;
+}
+
+.arr-view {
+  display: inline-block;
+}
+
+.arr-view-chevron {
+  text-align: right;
+  display: inline-block;
+  padding: 5px;
+  padding-left: 90px;
+}
+
+.arr-view-list {
+  margin-left: 60px;
+}
+
+li {
+  display: flex;
+  align-items: center;
+}
+
+.leaf-view {
+  display: inline-block;
+  padding-left: 20px;
+  font-weight: 400;
+  max-width: 300px;
+  vertical-align: top;
+}
+
+
+button {
+  background-color: inherit;
+  color: inherit;
+  text-align: right;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+img[class*=chevron-] {
+  width: 15px;
+}
+
+.chevron-left, .chevron-right {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+
+.chevron-up, .chevron-left {
+  background-color: #e4e8d8;
+}
