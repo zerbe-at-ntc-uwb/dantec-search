@@ -10,17 +10,21 @@ function deref_json_obj(json_obj: Object, path_arr: (string|number)[]) {
 
 /*********** Main component ******************/
 
-export default function LevelObjectView({data, defaultArrOpen}) {
+export default function LevelObjectView({data, defaultArrOpen, marginTop=0}) {
   // Styles is passed in to allow external configuration.
   const name : string = 'level-object-view';
-  const [nextLevel, setNextLevel] = useState<(string|number)[]>(null);
-  const openObjRef = useRef(null);
-  const dataViewerRef = useRef(null);
-  const openArrConfig = useRef({});
-  const openObjPad = 20;  // Vertical spacing to pull up the div for the open object.
-  const levelContext = {nextLevel: nextLevel, setNextLevel: setNextLevel, openObjRef: openObjRef,
-                        openArrConfig: openArrConfig, defaultArrOpen: defaultArrOpen};
-
+  const openObjPad = 20;
+  const [nextLevelConfig, setNextLevelConfig] = useState({pathArr: null,
+                                                          marginTop: marginTop,
+                                                          adjustedMarginTop: marginTop - openObjPad,
+                                                          nextLevelMarginTop: marginTop });
+  const dataViewerRef = useRef(null);  // Allows for access top margin of the div.
+  const openArrConfig = useRef(null);  // Keeps track of whether arrays are open or closed.
+  const levelContext = {nextLevelConfig: nextLevelConfig,
+                        setNextLevelConfig: setNextLevelConfig,
+                        dataViewerRef: dataViewerRef,
+                        openArrConfig: openArrConfig,
+                        defaultArrOpen: defaultArrOpen};
 
   const objectContent = Object.keys(data).map((key) => {
     if (data[key] == null || data[key] == undefined) {
@@ -33,21 +37,21 @@ export default function LevelObjectView({data, defaultArrOpen}) {
     </div>
     );
   });
-  if (nextLevel == null || nextLevel.length == 0) {
+  const thisLevelStyle = {marginTop: marginTop};
+  if (nextLevelConfig.pathArr == null || nextLevelConfig.pathArr.length == 0) {
     return (
-      <div className={name}>
+      <div className={name} ref={dataViewerRef} style={thisLevelStyle}>
         {objectContent}
       </div>
     );
   } else {
-    // Needs to be defered as the open element has not been rendered yet.
-    const calc_top_margin = () => { return dataViewerRef.current.top - openObjRef.current.top - openObjPad; }
+    const nextLevelStyle = {marginTop: nextLevelConfig.nextLevelMarginTop};
     return (
       <>
-        <div className={name} ref={dataViewerRef}>
+        <div className={name} ref={dataViewerRef} style={thisLevelStyle}>
           {objectContent}
         </div>
-        <LevelObjectView style={{marginTop: 10}} data={deref_json_obj(data, nextLevel)} />
+        <LevelObjectView data={deref_json_obj(data, nextLevelConfig.pathArr)} marginTop={nextLevelConfig.nextLevelMarginTop} />
       </>
     );
   }

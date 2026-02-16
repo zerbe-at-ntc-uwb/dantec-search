@@ -95,16 +95,33 @@ function LinkView({value}) {
 
 function ObjButton({obj_name, pathArr, levelContext}) {
   const name='object-button';
-  if (arrays_are_equal(pathArr, levelContext.nextLevel)) {
+
+  function handle_closing_click(event) {
+    levelContext.setNextLevelConfig({...levelContext.nextLevelConfig,
+                                     pathArr: null,
+                                     nextLevelMarginTop: levelContext.nextLevelConfig.marginTop
+                                    });
+  }
+
+  function handle_opening_click(event) {
+    const offset = event.target.offsetTop - levelContext.dataViewerRef.current.offsetTop;
+    const nextLevelMarginTop = levelContext.nextLevelConfig.adjustedMarginTop + offset;
+    levelContext.setNextLevelConfig({...levelContext.nextLevelConfig,
+                                     pathArr: pathArr,
+                                     nextLevelMarginTop: nextLevelMarginTop
+                                    });
+  }
+
+  if (arrays_are_equal(pathArr, levelContext.nextLevelConfig.pathArr)) {
     return (
-      <button className={name} onClick={() => levelContext.setNextLevel(null)} ref={levelContext.openObjRef} >
+      <button className={name} onClick={handle_closing_click} >
         <span className={name + "-name"}>{obj_name}</span>
         <ChevronLeft />
       </button>
     );
   } else {
     return (
-      <button className={name} onClick={() => levelContext.setNextLevel(pathArr)} >
+      <button className={name} onClick={handle_opening_click} >
         <span className={name + "-name"}>{obj_name}</span>
         <ChevronRight />
       </button>
