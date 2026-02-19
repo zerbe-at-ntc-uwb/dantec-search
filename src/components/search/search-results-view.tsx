@@ -13,6 +13,7 @@ const SearchResultsViewQuery = graphql`
 
 export default function SearchResultsView({query, setQueryCallback}) {
   const name: string = "search-results-view";
+  console.log(query);
   const data = useLazyLoadQuery<SearchResultsViewQueryType>(
     SearchResultsViewQuery,
     {jsonQueryStr: JSON.stringify(query)}

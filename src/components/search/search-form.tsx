@@ -8,11 +8,11 @@ function SearchForm({setQueryCallback}) {
   placeholders.elements = "Elemental symbols, like He or Cl, separated by a space."
 
   function postProcessElements(value: string) : string[] {
-    return value.split(/(\s+)/);
+    return value.split(/\ /);
   }
   function create_query(formData) {
-    const query = {};
-    query["results.material.elements"] = {all: postProcessElements(formData.get("elements"))};
+    const query = {query: {}, pagination: {}};
+    query["query"]["results.material.elements"] = {all: postProcessElements(formData.get("elements"))};
     query["pagination"] =  {page_size: formData.get("page_size")};
     setQueryCallback(query);
   }
