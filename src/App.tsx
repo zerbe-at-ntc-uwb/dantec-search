@@ -1,9 +1,9 @@
 import './App.css'
-import AllElementsSearch from './components/search/all_elements_search.tsx'
+import TabsContent from './components/navigation/tabs-content.tsx'
 
 function App() {
   return (
-    <AllElementsSearch />
+    <TabsContent />
   );
 }
 

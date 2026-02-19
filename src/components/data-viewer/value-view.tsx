@@ -79,9 +79,9 @@ export function LeafView({value}) {
 
   if (is_link(value)) {
     return (
-      <span className={name}>
+      <p className={name}>
         <LinkView value={value} />
-      </span>
+      </p>
     );
   } else {
     return (<p className={name}>{value}</p>);

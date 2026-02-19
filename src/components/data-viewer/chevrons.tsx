@@ -5,18 +5,18 @@ import chevron_up from './assets/chevron-up-svgrepo-com.svg'
 
 
 export function ChevronDown() {
-  return <img className="chevron-down" src={chevron_down} className="chevron-down" alt="Downward chevron."/>;
+  return <img className="chevron-down" src={chevron_down} alt="Downward chevron."/>;
 }
 
 export function ChevronLeft() {
-  return <img className="chevron-left" src={chevron_left} className="chevron-left" alt="Leftward chevron."/>;
+  return <img className="chevron-left" src={chevron_left}  alt="Leftward chevron."/>;
 }
 
 export function ChevronRight() {
-  return <img className="chevron-right" src={chevron_right} className="chevron-right" alt="Rightward chevron."/>;
+  return <img className="chevron-right" src={chevron_right} alt="Rightward chevron."/>;
 }
 
 export function ChevronUp() {
-  return <img className="chevron-up" src={chevron_up} className="chevron-up" alt="Upward chevron." />;
+  return <img className="chevron-up" src={chevron_up} alt="Upward chevron." />;
 }
 
